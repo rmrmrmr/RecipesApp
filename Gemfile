@@ -80,4 +80,4 @@ gem 'devise', '~> 4.9'
 
 gem 'rubocop', '>= 1.0', '< 2.0'
 
-gem "dotenv-rails"
+gem 'dotenv-rails'
