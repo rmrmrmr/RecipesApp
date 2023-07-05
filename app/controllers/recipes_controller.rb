@@ -1,6 +1,7 @@
 class RecipesController < ApplicationController
   def index
     @user = current_user.name
+    @recipes = Recipes.where(user: current_user)
   end
 
   def new
@@ -28,7 +29,19 @@ class RecipesController < ApplicationController
 
   def show; end
 
-  def destroy; end
+  def destroy
+    @recipe = Recipes.find(params[:id])
+    respond_to do |f|
+      f.html do
+        if @recipe.destroy
+          redirect_to recipes_path
+        else
+          flash.now[:error] = "Could not delete recipe"
+          render :index
+        end
+      end
+    end
+  end
 
   def recipe_params
     params.require(:recipe).permit(:name, :preparation_time, :cooking_time, :description)
