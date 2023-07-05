@@ -7,7 +7,7 @@
 
   <div class="flex flex-col gap-4 w-full items-center text-slate-700">
     <% @recipes.each do |recipe| %>
-      <div class="border-2 border-blue-900 rounded-lg flex w-5/6 h-32 pl-6">
+      <%= link_to recipe_path(recipe.id), class:"border-2 border-blue-900 rounded-lg flex w-5/6 h-32 pl-6" do %>
         <div class="w-1/3 flex flex-col justify-center">
           <p class="text-3xl"><%= recipe.name %></p>
           <%= button_to "Remove", recipe_path(id: recipe.id), method: :delete, class: 'text-xl text-blue-600 underline' %>
@@ -15,7 +15,7 @@
         <div class="w-2/3 flex items-center">
           <p><%= recipe.description %></p>
         </div>
-      </div>
+      <% end %>
     <% end %>
   </div>
 </section>
