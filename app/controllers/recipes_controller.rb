@@ -36,7 +36,7 @@ class RecipesController < ApplicationController
         if @recipe.destroy
           redirect_to recipes_path
         else
-          flash.now[:error] = "Could not delete recipe"
+          flash.now[:error] = 'Could not delete recipe'
           render :index
         end
       end
