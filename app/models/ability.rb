@@ -1,9 +1,7 @@
-# frozen_string_literal: true
-
 class Ability
   include CanCan::Ability
 
-  def initialize(user)
+  def initialize(_user)
     can :manage, :all
     # Define abilities for the user here. For example:
     #
