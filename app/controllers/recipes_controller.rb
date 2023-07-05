@@ -5,10 +5,9 @@ class RecipesController < ApplicationController
 
   def new
     @user = current_user.name
-    # @recipe = Recipe.find
     @recipe = Recipes.new
     respond_to do |format|
-      format.html { render :new, locals: {recipe: @recipe} }
+      format.html { render :new, locals: { recipe: @recipe } }
     end
   end
 
@@ -20,7 +19,7 @@ class RecipesController < ApplicationController
         if @recipe.save
           redirect_to recipes_path
         else
-          flash.now[:error] = "Error: could not save recipe"
+          flash.now[:error] = 'Error: could not save recipe'
           render :new, locals: { recipe: @recipe }
         end
       end
