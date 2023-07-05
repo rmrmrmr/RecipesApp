@@ -1,7 +1,11 @@
 class RecipesController < ApplicationController
-  def index; end
+  def index
+    @user = current_user.name
+  end
 
-  def new; end
+  def new
+    @user = current_user.name
+  end
 
   def create; end
 

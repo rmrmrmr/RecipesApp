@@ -1,7 +1,15 @@
-<nav class="w-full py-3 flex gap-5 justify-end bg-slate-500 text-slate-200 text-xl font-semibold">
-  <%= link_to "My Recipes",  recipes_path, class: "hover:text-slate-500 hover:bg-slate-200 p-2 rounded-lg" %><br />
-  <%= link_to "Inventory",  foods_path, class: "hover:text-slate-500 hover:bg-slate-200 p-2 rounded-lg"  %><br />
-  <%= link_to "Shopping List", shoppinglist_index_path, class: "hover:text-slate-500 hover:bg-slate-200 p-2 rounded-lg"  %><br />
-  <%= link_to "Public Recipes",  publicrecipes_path, class: "hover:text-slate-500 hover:bg-slate-200 p-2 rounded-lg"  %><br />
-  <%= link_to "Sign Out", destroy_user_session_path, class: "hover:text-slate-500 hover:bg-slate-200 p-2 rounded-lg"  %><br />
+<nav class="w-full py-3 flex justify-around bg-slate-500 text-slate-200 text-xl font-semibold">
+  <p class="p-2">
+    Hey there, <%= user %>!
+  </p>
+  <p class="p-2">
+    <%= page_title %>
+  </p>
+  <div class="flex gap-5">
+    <%= link_to "My Recipes",  recipes_path, class: "hover:text-slate-500 hover:bg-slate-200 p-2 rounded-lg" %><br />
+    <%= link_to "Inventory",  foods_path, class: "hover:text-slate-500 hover:bg-slate-200 p-2 rounded-lg"  %><br />
+    <%= link_to "Shopping List", shoppinglist_index_path, class: "hover:text-slate-500 hover:bg-slate-200 p-2 rounded-lg"  %><br />
+    <%= link_to "Public Recipes",  publicrecipes_path, class: "hover:text-slate-500 hover:bg-slate-200 p-2 rounded-lg"  %><br />
+    <%= link_to "Sign Out", destroy_user_session_path, class: "hover:text-slate-500 hover:bg-slate-200 p-2 rounded-lg"  %><br />
+  </div>
 </nav>

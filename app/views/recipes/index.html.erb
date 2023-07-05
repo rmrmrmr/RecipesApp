@@ -1,1 +1,7 @@
-<%= render partial:'partials/navbar' %>
+<section class="flex flex-col items-center w-full">
+  <%= render partial:'partials/navbar', locals: {page_title: 'My Recipes', user: @user} %>
+
+  <div class="w-full flex justify-end px-48 mt-10">
+    <%= link_to "New Recipe", new_recipe_path, class: 'py-2 px-4 bg-slate-600 text-slate-100 rounded-lg font-semibold' %>
+  </div>
+</section>
