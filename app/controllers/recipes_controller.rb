@@ -29,6 +29,7 @@ class RecipesController < ApplicationController
 
   def show
     @user = current_user.name
+    @recipe = Recipes.find(params[:id])
   end
 
   def destroy

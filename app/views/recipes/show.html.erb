@@ -1,5 +1,14 @@
 <section class="flex flex-col items-center w-full">
   <%= render partial:'partials/navbar', locals: {page_title: 'Details', user: @user} %>
 
-  
+  <div class="w-full flex flex-wrap gap-y-8 justify-center px-28 py-7 text-slate-600">
+    <h1 class="w-full text-center text-5xl font-bold"><%= @recipe.name %></h1>
+    <div class="w-1/2 flex flex-col gap-3 text-slate-600 text-xl">
+      <p>Preparation time: <%= @recipe.preparation_time %></p>
+      <p>Cooking time: <%= @recipe.cooking_time %></p>
+      <p class="text-justify"><%= @recipe.description %></p>
+    </div>
+    <div class="w-1/2">
+    </div>
+  </div>
 </section>
