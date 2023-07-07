@@ -5,8 +5,8 @@ RSpec.feature 'Recipe List', type: :feature do
   let(:user) { User.create(email: 'test@example.com', password: 'password') }
 
   scenario 'User views recipe list' do
-    recipe1 = Recipe.create(name: 'Pasta', description: 'Delicious pasta recipe', user: user)
-    recipe2 = Recipe.create(name: 'Pizza', description: 'Homemade pizza recipe', user: user)
+    recipe1 = Recipe.create(name: 'Pasta', description: 'Delicious pasta recipe', user:)
+    recipe2 = Recipe.create(name: 'Pizza', description: 'Homemade pizza recipe', user:)
 
     visit recipes_path
 
@@ -32,7 +32,7 @@ RSpec.feature 'Recipe List', type: :feature do
   end
 
   scenario 'User removes a recipe from the list' do
-    recipe = Recipe.create(name: 'Pasta', description: 'Delicious pasta recipe', user: user)
+    recipe = Recipe.create(name: 'Pasta', description: 'Delicious pasta recipe', user:)
 
     visit recipes_path
 
@@ -40,7 +40,6 @@ RSpec.feature 'Recipe List', type: :feature do
       expect(page).to have_content(recipe.name)
       click_button 'Remove'
     end
-
     expect(page).not_to have_content(recipe.name)
     expect(page).not_to have_content(recipe.description)
     expect(page).not_to have_button('Remove')

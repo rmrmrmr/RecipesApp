@@ -3,7 +3,7 @@ require 'rails_helper'
 
 RSpec.feature 'Public Recipe', type: :feature do
   let(:user) { User.create(email: 'test@example.com', password: 'password') }
-  let(:recipe) { Recipe.create(name: 'Apple Pie', description: 'Delicious apple pie recipe', public: true, user: user) }
+  let(:recipe) { Recipe.create(name: 'Apple Pie', description: 'Delicious apple pie recipe', public: true, user:) }
 
   scenario 'User views public recipe details' do
     visit public_recipe_path(recipe)

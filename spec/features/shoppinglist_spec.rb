@@ -5,8 +5,8 @@ RSpec.feature 'Shopping List', type: :feature do
   let(:user) { User.create(email: 'test@example.com', password: 'password') }
 
   scenario 'User views shopping list' do
-    food1 = Food.create(name: 'Apple', quantity: 5, price: 1.99, user: user)
-    food2 = Food.create(name: 'Banana', quantity: 3, price: 0.99, user: user)
+    food1 = Food.create(name: 'Apple', quantity: 5, price: 1.99, user:)
+    food2 = Food.create(name: 'Banana', quantity: 3, price: 0.99, user:)
     total_missing_count = 2
     total_missing_price = 10.93
 

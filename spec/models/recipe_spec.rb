@@ -2,7 +2,10 @@
 require 'rails_helper'
 
 RSpec.describe Recipes, type: :model do
-  subject { Recipes.new(name: 'recipe', preparation_time: 10, cooking_time: 10, description: 'recipe description', public: true, user_id: 1) }
+  subject do
+    Recipes.new(name: 'recipe', preparation_time: 10, cooking_time: 10, description: 'recipe description', public: true,
+                user_id: 1)
+  end
 
   before { subject.save }
 
@@ -48,6 +51,6 @@ RSpec.describe Recipes, type: :model do
 
   it 'validates presence of user_id' do
     subject.user_id = nil
-    expect(subject).to_not be_valid  
+    expect(subject).to_not be_valid
   end
 end
