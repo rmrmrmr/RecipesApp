@@ -43,6 +43,14 @@ class RecipesController < ApplicationController
   def show
     @user = current_user.name
     @recipe = Recipes.find(params[:id])
+    @foods = Recipefood.where(recipes_id: params[:id])
+    @ingredients = []
+    @foods.each do |food|
+      @ing = Food.find(food.foods_id)
+      val = @ing.price * food.quantity
+      values = {"id"=> food.id,'name' => @ing.name, 'quantity' => food.quantity, 'unit'=> @ing.measurement_unit, 'value' => val}
+      @ingredients << values
+    end
   end
 
   def destroy
