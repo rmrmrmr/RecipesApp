@@ -1,3 +1,5 @@
 class ShoppinglistController < ApplicationController
-  def index; end
+  def index
+    @user = current_user.name
+  end
 end

@@ -1,4 +1,6 @@
 class RecipesController < ApplicationController
+  authorize_resource
+
   def index
     @user = current_user.name
     @recipes = Recipes.where(user: current_user)
@@ -27,8 +29,32 @@ class RecipesController < ApplicationController
     end
   end
 
+  def update
+    @recipe = Recipes.find(params[:id])
+    respond_to do |format|
+      format.html do
+        if @recipe.update(recipe_params)
+          format.html { redirect_to recipe_url(@recipe), notice: 'Recipe was successfully updated.' }
+        else
+          format.html { render :index, status: :unprocessable_entity }
+        end
+      end
+    end
+  end
+
   def show
     @user = current_user.name
+    @recipe = Recipes.find(params[:id])
+    @foods = Recipefood.where(recipes_id: params[:id])
+    @canupdate = current_user.id == @recipe.user_id
+    @ingredients = []
+    @foods.each do |food|
+      @ing = Food.find(food.foods_id)
+      val = @ing.price * food.quantity
+      values = { 'id' => food.id, 'name' => @ing.name, 'quantity' => food.quantity, 'unit' => @ing.measurement_unit,
+                 'value' => val }
+      @ingredients << values
+    end
   end
 
   def destroy
@@ -46,6 +72,6 @@ class RecipesController < ApplicationController
   end
 
   def recipe_params
-    params.require(:recipe).permit(:name, :preparation_time, :cooking_time, :description)
+    params.require(:recipe).permit(:name, :preparation_time, :cooking_time, :description, :public)
   end
 end
