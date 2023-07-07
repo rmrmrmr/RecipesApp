@@ -10,22 +10,29 @@
       <p class="text-justify"><%= @recipe.description %></p>
     </div>
 
-    <div class="w-1/2 flex justify-center">
-      <%= form_with url: recipe_path, method: :patch, scope: :recipe do |f| %>
-        <div class="text-4xl ml-32">
-            <%= f.label :public, class: "text-4xl" %>
-            <%= f.check_box :public,
-                           {
-                             role: "switch",
-                             onchange: "this.form.submit()"
-                           }  %>
-          </div>
-      <% end %>
-    </div>
+    <% if @canupdate %>
+      <div class="w-1/2 flex justify-center">
+        <%= form_with url: recipe_path, method: :patch, scope: :recipe do |f| %>
+          <div class="text-4xl ml-32">
+              <%= f.label :public, class: "text-4xl" %>
+              <%= f.check_box :public,
+                            {
+                              role: "switch",
+                              onchange: "this.form.submit()"
+                            }  %>
+            </div>
+        <% end %>
+      </div>
+      <% else %>
+      <div class="w-1/2 flex justify-center">
+      </div>
+    <% end %>
 
     <div class="w-full flex justify-between">
-    <%= link_to  'Go to shopping list', shoppinglist_index_path, class: "w-3/8 bg-slate-600 text-slate-100 rounded-lg font-semibold text-center text-xl py-4 px-5" %>
-    <%= link_to "Add Food", new_recipe_recipefood_path(params[:id]), class:"w-3/8 bg-slate-600 text-slate-100 rounded-lg font-semibold text-center text-xl py-4 px-5" %>
+      <%= link_to  'Go to shopping list', shoppinglist_index_path, class: "w-3/8 bg-slate-600 text-slate-100 rounded-lg font-semibold text-center text-xl py-4 px-5" %>
+      <% if @canupdate %>
+      <%= link_to "Add Food", new_recipe_recipefood_path(params[:id]), class:"w-3/8 bg-slate-600 text-slate-100 rounded-lg font-semibold text-center text-xl py-4 px-5" %>
+      <% end %>
     </div>
 
     <table class="w-full">
@@ -33,17 +40,21 @@
         <th>Name</th>
         <th>Quantity</th>
         <th>Value</th>
+        <% if @canupdate %>
         <th>Actions</th>
+        <% end %>
       </tr>
       <% @ingredients.each do |i| %>
       <tr class="h-[50px] bg-slate-200 text-slate-700 border-b-2 border-slate-700 border-x-2">
         <th class="w-1/4 text-xl"><%= i['name'] %></th>
         <th class="w-1/4 text-xl"><%= i['quantity'] %><%= i["unit"] %></th>
         <th class="w-1/4 text-xl"><%= i['value'] %></th>
+        <% if @canupdate %>
         <th class="w-1/4 text-lg">
           <p class="my-4">Modify</p>
           <p class="mb-4">Remove</p>
         </th>
+        <% end %>
       </tr>
       <% end %>
     </table>

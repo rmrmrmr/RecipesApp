@@ -1,4 +1,6 @@
 class RecipesController < ApplicationController
+  authorize_resource
+
   def index
     @user = current_user.name
     @recipes = Recipes.where(user: current_user)
@@ -44,6 +46,11 @@ class RecipesController < ApplicationController
     @user = current_user.name
     @recipe = Recipes.find(params[:id])
     @foods = Recipefood.where(recipes_id: params[:id])
+    if current_user.id == @recipe.user_id
+      @canupdate = true
+    else
+      @canupdate = false
+    end
     @ingredients = []
     @foods.each do |food|
       @ing = Food.find(food.foods_id)
