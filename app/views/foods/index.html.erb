@@ -1,1 +1,38 @@
-<%= render partial:'partials/navbar', locals: {page_title: 'Foods List', user: @user}%>
+<section class="flex flex-col items-center w-full">
+  <%= render partial:'partials/navbar', locals: {page_title: 'Foods List', user: @user}%>
+  <%# <%= stylesheet_link_tag 'style' %> 
+
+  <div class="top-btns">
+    <div class="add-food-button btn">
+      <%= button_to "Add Food", new_food_path, method: :get, class: "btn btn-primary" %>
+    </div>
+
+    <div class="logout-button btn">
+      <%= button_to 'Logout', destroy_user_session_path, method: :delete %>
+    </div>
+  </div>
+  <div class="table-container">
+  <table class="food-table">
+    <thead>
+      <tr>
+        <th class="food-header">Food</th>
+        <th class="food-header">Measurement unit</th>
+        <th class="food-header">Unit Price</th>
+        <th class="food-header">Quantity</th>
+        <th class="food-header">Actions</th>
+      </tr>
+    </thead>
+    <tbody class="table-content">
+      <% @food.each do |food| %>
+      <tr>
+        <td class="content"><%= food.name %></td>
+        <td class="content"><%= food.measurement_unit %></td>
+        <td class="content"><%= food.price %></td>
+        <td class="content"><%= food.quantity %></td>
+        <td class="content"><%= button_to 'Delete', food_path(food.id), method: :delete, class: "delete-btn" %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  </div>
+</section>
