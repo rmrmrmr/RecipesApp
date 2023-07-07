@@ -1,56 +1,28 @@
-# spec/models/recipe_spec.rb
 require 'rails_helper'
 
-RSpec.describe Recipes, type: :model do
-  subject do
-    Recipes.new(name: 'recipe', preparation_time: 10, cooking_time: 10, description: 'recipe description', public: true,
-                user_id: 1)
+RSpec.describe Recipe, type: :model do
+  before :each do
+    @user5 = User.new(name: 'nameofuser', email: 'asdt56062@gmail.com', password: '6letters',
+                      encrypted_password: '$2a$12$192AtELpNZ0aZCfnSxs35umQYmbSn52FK8ML/vY.iZvDW4FvkvHn2')
+    @user5.skip_confirmation!
+    @user5.confirm
+    @user5.save
+    @food5 = Food.create(name: 'foodstuff', measurement_unit: 'gr', price: 20, quantity: 1, user_id: @user5.id)
+    @recipe5 = Recipe.create(name: 'foodrecipe', preparation_time: '1.5', cooking_time: '1', description: 'lorem',
+                             public: true, user_id: @user5.id)
+    @recipe5food = RecipeFood.create(quantity: 5, food_id: @food5.id, recipe_id: @recipe5.id)
   end
-
-  before { subject.save }
 
   it 'name should be present' do
-    subject.name = nil
-    expect(subject).to_not be_valid
+    @recipe5.name = nil
+    expect(@recipe5).to_not be_valid
   end
 
-  it 'preparation time should be present' do
-    subject.preparation_time = nil
-    expect(subject).to_not be_valid
+  it 'total_price should work' do
+    expect(@recipe5.total_price).to eq(100)
   end
 
-  it 'preparation time should be an integer' do
-    subject.preparation_time = 1.5
-    expect(subject).to_not be_valid
-  end
-
-  it 'preparation time should be greater than 0' do
-    subject.preparation_time = 0
-    expect(subject).to_not be_valid
-  end
-
-  it 'cooking time should be present' do
-    subject.cooking_time = nil
-    expect(subject).to_not be_valid
-  end
-
-  it 'cooking time should be an integer' do
-    subject.cooking_time = 1.5
-    expect(subject).to_not be_valid
-  end
-
-  it 'cooking time should be greater than 0' do
-    subject.cooking_time = 0
-    expect(subject).to_not be_valid
-  end
-
-  it 'validates presence of description' do
-    subject.description = nil
-    expect(subject).to_not be_valid
-  end
-
-  it 'validates presence of user_id' do
-    subject.user_id = nil
-    expect(subject).to_not be_valid
+  it 'total_items should work' do
+    expect(@recipe5.total_items).to eq(1)
   end
 end

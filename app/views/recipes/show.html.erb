@@ -1,62 +1,27 @@
-<section class="flex flex-col items-center w-full">
-  <%= render partial:'partials/navbar', locals: {page_title: 'Details', user: @user} %>
-
-  <div class="w-full flex flex-wrap gap-y-8 justify-center px-28 py-7 text-slate-600">
-    <h1 class="w-full text-center text-5xl font-bold"><%= @recipe.name %></h1>
-
-    <div class="w-1/2 flex flex-col gap-3 text-slate-600 text-xl">
-      <p>Preparation time: <%= @recipe.preparation_time %></p>
-      <p>Cooking time: <%= @recipe.cooking_time %></p>
-      <p class="text-justify"><%= @recipe.description %></p>
+<section class='container'>
+  <h1><%= @recipe.name %></h1>
+  <div class='subcontainer'>
+    <div class='column-left'>
+      <p class='biginfo'>Preparation Time: <%= @recipe.preparation_time %> hs.</p>
+      <p class='biginfo'>Cooking Time: <%= @recipe.cooking_time %> hs.</p>
+      <p> <%= @recipe.description %> </p>
+      <%= link_to 'Generate Shopping List', shopping_list_path(@recipe.id), class: :linkbutton %>
     </div>
-
-    <% if @canupdate %>
-      <div class="w-1/2 flex justify-center">
-        <%= form_with url: recipe_path, method: :patch, scope: :recipe do |f| %>
-          <div class="text-4xl ml-32">
-              <%= f.label :public, class: "text-4xl" %>
-              <%= f.check_box :public,
-                            {
-                              role: "switch",
-                              onchange: "this.form.submit()"
-                            }  %>
-            </div>
+    <% if can? :manage, @recipe%>
+    <div class='column-right'>
+      <div class='togglediv'>
+        <p class='togglelabel'>Public</p>
+        <%= link_to recipe_toggle_path(@recipe.id), data: { "turbo-method": :post } do %>
+          <label class="switch" checked='<%= @recipe.public %>'>
+            <input type="checkbox" checked='<%= @recipe.public %>'>
+            <span class="slider round" checked='<%= @recipe.public %>'></span>
+          </label>
         <% end %>
       </div>
-      <% else %>
-      <div class="w-1/2 flex justify-center">
-      </div>
-    <% end %>
-
-    <div class="w-full flex justify-between">
-      <%= link_to  'Go to shopping list', shoppinglist_index_path, class: "w-3/8 bg-slate-600 text-slate-100 rounded-lg font-semibold text-center text-xl py-4 px-5" %>
-      <% if @canupdate %>
-      <%= link_to "Add Food", new_recipe_recipefood_path(params[:id]), class:"w-3/8 bg-slate-600 text-slate-100 rounded-lg font-semibold text-center text-xl py-4 px-5" %>
+      <%= link_to 'Add Ingredient', ingredient_new_path(@recipe.id), class: :linkbutton %>
       <% end %>
     </div>
-
-    <table class="w-full">
-      <tr class="bg-slate-700 text-slate-200 border-x-2 border-t-2 border-slate-700 text-2xl">
-        <th>Name</th>
-        <th>Quantity</th>
-        <th>Value</th>
-        <% if @canupdate %>
-        <th>Actions</th>
-        <% end %>
-      </tr>
-      <% @ingredients.each do |i| %>
-      <tr class="h-[50px] bg-slate-200 text-slate-700 border-b-2 border-slate-700 border-x-2">
-        <th class="w-1/4 text-xl"><%= i['name'] %></th>
-        <th class="w-1/4 text-xl"><%= i['quantity'] %><%= i["unit"] %></th>
-        <th class="w-1/4 text-xl"><%= i['value'] %></th>
-        <% if @canupdate %>
-        <th class="w-1/4 text-lg">
-          <%= button_to 'Remove', recipe_recipefood_path(recipe_id: params[:id], id: i["id"]), method: :delete, class: 'my-4 hover:underline' %>
-        </th>
-        <% end %>
-      </tr>
-      <% end %>
-    </table>
   </div>
-
+  <span></span>
+  <%= render 'ingredients_table' %>
 </section>
