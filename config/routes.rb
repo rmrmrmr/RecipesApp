@@ -8,4 +8,6 @@ Rails.application.routes.draw do
   end
   resources :publicrecipes, only: [:index]
   resources :shoppinglist, only: [:index]
+
+  get '/general_shopping_list', to: 'shoppinglist#general_shopping_list'
 end
