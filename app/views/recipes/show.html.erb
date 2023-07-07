@@ -29,7 +29,7 @@
     <% end %>
 
     <div class="w-full flex justify-between">
-      <%= link_to  'Go to shopping list', shoppinglist_index_path, class: "w-3/8 bg-slate-600 text-slate-100 rounded-lg font-semibold text-center text-xl py-4 px-5" %>
+      <%= link_to  'Go to shopping list', shoppinglist_index_path(recipe_id: @recipe.id), class: "w-3/8 bg-slate-600 text-slate-100 rounded-lg font-semibold text-center text-xl py-4 px-5" %>
       <% if @canupdate %>
       <%= link_to "Add Food", new_recipe_recipefood_path(params[:id]), class:"w-3/8 bg-slate-600 text-slate-100 rounded-lg font-semibold text-center text-xl py-4 px-5" %>
       <% end %>
