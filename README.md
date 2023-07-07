@@ -115,7 +115,7 @@ To run tests, run the following command:
 
 - GitHub: [@AyomipoMajek](https://github.com/AyomipoMajek)
 - Linkedin: [@AyomipoMajek](https://www.linkedin.com/in/ayomipomajek/)
-- 
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- FUTURE FEATURES -->
