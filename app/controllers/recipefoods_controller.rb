@@ -18,7 +18,7 @@ class RecipefoodsController < ApplicationController
           redirect_to recipe_path(params[:recipe_id])
         else
           flash.now[:error] = 'Could not add ingredient to recipe'
-          render :new, locals: {recipefood: @recipefood}
+          render :new, locals: { recipefood: @recipefood }
         end
       end
     end

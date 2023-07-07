@@ -35,7 +35,7 @@ class RecipesController < ApplicationController
           format.html { redirect_to recipe_url(@recipe), notice: 'Recipe was successfully updated.' }
         else
           format.html { render :index, status: :unprocessable_entity }
-        end      
+        end
       end
     end
   end
@@ -48,7 +48,8 @@ class RecipesController < ApplicationController
     @foods.each do |food|
       @ing = Food.find(food.foods_id)
       val = @ing.price * food.quantity
-      values = {"id"=> food.id,'name' => @ing.name, 'quantity' => food.quantity, 'unit'=> @ing.measurement_unit, 'value' => val}
+      values = { 'id' => food.id, 'name' => @ing.name, 'quantity' => food.quantity, 'unit' => @ing.measurement_unit,
+                 'value' => val }
       @ingredients << values
     end
   end
