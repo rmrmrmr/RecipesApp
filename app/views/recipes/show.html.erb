@@ -51,8 +51,7 @@
         <th class="w-1/4 text-xl"><%= i['value'] %></th>
         <% if @canupdate %>
         <th class="w-1/4 text-lg">
-          <p class="my-4">Modify</p>
-          <p class="mb-4">Remove</p>
+          <%= button_to 'Remove', recipe_recipefood_path(recipe_id: params[:id], id: i["id"]), method: :delete, class: 'my-4 hover:underline' %>
         </th>
         <% end %>
       </tr>

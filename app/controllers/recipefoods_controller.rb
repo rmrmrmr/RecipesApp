@@ -24,6 +24,20 @@ class RecipefoodsController < ApplicationController
     end
   end
 
+  def destroy
+    @recipefood = Recipefood.find(params[:id])
+    respond_to do |f|
+      f.html do
+        if @recipefood.destroy
+          redirect_to recipe_path(params[:recipe_id])
+        else
+          flash.now[:error] = 'Could not delete'
+          redirect_to recipe_path(params[:recipe_id])
+        end
+      end
+    end
+  end
+
   def recipefood_params
     params.require(:recipefood).permit(:quantity, :foods_id, :recipes_id)
   end
