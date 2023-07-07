@@ -1,5 +1,31 @@
 <section class="flex flex-col items-center w-full">
-  <%= render partial:'partials/navbar', locals: {page_title: 'Shopping list', user: @user} %>
+  <%= render partial:'partials/navbar', locals: {page_title: 'Shopping List', user: @user} %>
 
+  <h1>Shopping List</h1>
+
+  <div class="w-5/6 mt-10">
+    <p>Total Missing Food Items: <%= @total_missing_count %></p>
+    <p>Total Missing Food Price: <%= number_to_currency(@total_missing_price) %></p>
+  </div>
+
+  <div class="table-container">
+    <table class="food-table">
+      <thead>
+        <tr>
+          <th class="food-header">Food</th>
+          <th class="food-header">Quantity</th>
+          <th class="food-header">Price</th>
+        </tr>
+      </thead>
+      <tbody class="table-content">
+        <% @missing_foods.each do |food| %>
+          <tr>
+            <td class="content"><%= food.name %></td>
+            <td class="content"><%= food.quantity %></td>
+            <td class="content"><%= food.price %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </section>
-
