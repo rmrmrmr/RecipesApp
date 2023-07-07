@@ -2,15 +2,17 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  describe 'associations' do
-    it { should have_many(:foods).class_name('Food').with_foreign_key('user_id') }
-    it { should have_many(:recipes).dependent(:destroy).with_foreign_key('user_id') }
+  subject { User.new(name: 'Name')}
+
+  before {subject.save}
+
+  it 'name should be present' do
+    subject.name = nil
+    expect(subject).to_not be_valid  
   end
 
-  describe 'devise modules' do
-    it { should be_validatable }
-    it { should be_database_authenticatable }
-    it { should be_recoverable }
-    it { should be_rememberable }
+  it 'email should be present' do
+    subject.email = nil
+    expect(subject).to_not be_valid
   end
 end
