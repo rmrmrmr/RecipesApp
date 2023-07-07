@@ -2,10 +2,12 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    can(:read, Recipe, public: true)
-
+    user ||= ::User.new
+    can :read, :all
     return unless user.present?
 
-    can(%i[read create update destroy], Recipe, user_id: user.id)
+    can(:manage, Food, user:)
+    can(:manage, Recipe, user:)
+    can :manage, RecipeFood, :all
   end
 end

@@ -1,17 +1,18 @@
 class ApplicationController < ActionController::Base
-  before_action :authenticate_user!
-  before_action :update_allowed_parameters, if: :devise_controller?
+  protect_from_forgery with: :exception
 
-  rescue_from CanCan::AccessDenied do |exception|
-    redirect_to root_url, alert: exception.message
-  end
+  before_action :authenticate_user!
+
+  before_action :update_allowed_parameters, if: :devise_controller?
 
   protected
 
   def update_allowed_parameters
-    devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:name, :email, :password, :photo) }
-    devise_parameter_sanitizer.permit(:account_update) do |u|
-      u.permit(:name, :email, :password, :current_password)
-    end
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[name email password password_confirmation])
+    devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:name, :email, :password, :current_password) }
+  end
+
+  def after_sign_out_path_for(_resource_or_scope)
+    new_user_session_path
   end
 end
