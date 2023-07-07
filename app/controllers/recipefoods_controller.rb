@@ -28,12 +28,8 @@ class RecipefoodsController < ApplicationController
     @recipefood = Recipefood.find(params[:id])
     respond_to do |f|
       f.html do
-        if @recipefood.destroy
-          redirect_to recipe_path(params[:recipe_id])
-        else
-          flash.now[:error] = 'Could not delete'
-          redirect_to recipe_path(params[:recipe_id])
-        end
+        flash.now[:error] = 'Could not delete' unless @recipefood.destroy
+        redirect_to recipe_path(params[:recipe_id])
       end
     end
   end
