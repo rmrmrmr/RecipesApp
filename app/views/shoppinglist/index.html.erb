@@ -18,7 +18,7 @@
         </tr>
       </thead>
       <tbody class="table-content">
-        <% @missing_foods.each do |food| %>
+        <% @recipes.foods.each do |food| %>
           <tr>
             <td class="content"><%= food.name %></td>
             <td class="content"><%= food.quantity %></td>
