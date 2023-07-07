@@ -46,11 +46,7 @@ class RecipesController < ApplicationController
     @user = current_user.name
     @recipe = Recipes.find(params[:id])
     @foods = Recipefood.where(recipes_id: params[:id])
-    if current_user.id == @recipe.user_id
-      @canupdate = true
-    else
-      @canupdate = false
-    end
+    @canupdate = current_user.id == @recipe.user_id
     @ingredients = []
     @foods.each do |food|
       @ing = Food.find(food.foods_id)
