@@ -1,6 +1,5 @@
 class Food < ApplicationRecord
-  belongs_to :user
-  has_many :recipe_foods, dependent: :destroy, foreign_key: 'food_id'
-  validates :quantity, numericality: { only_integer: true, greater_than_or_equal_to: 1 }
-  validates :name, presence: true
+  validates :price, :quantity, numericality: { greater_than: 0 }
+  has_many :recipe_foods, class_name: 'RecipeFood', foreign_key: 'food_id'
+  belongs_to :user, class_name: 'User'
 end
