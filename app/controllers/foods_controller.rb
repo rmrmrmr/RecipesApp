@@ -1,33 +1,30 @@
 class FoodsController < ApplicationController
-  load_and_authorize_resource except: :create
   def index
-    @foods = Food.where(user_id: current_user.id)
-  end
-
-  def create
-    @food = Food.new(food_params)
-
-    @food.user_id = current_user.id
-
-    if @food.save
-      redirect_to foods_path, notice: 'Food was successfully created.'
-    else
-      redirect_to foods_path, notice: 'Food was not created.'
-    end
+    @user = current_user.name
+    @food = current_user.foods.includes(:user)
   end
 
   def new
     @food = Food.new
   end
 
-  def destroy
-    @food = Food.find(params[:id])
-    if @food.destroy
-      redirect_to foods_path, notice: 'Food was successfully destroyed.'
+  def create
+    @food = current_user.foods.build(food_params)
+    if @food.save
+      redirect_to foods_path, notice: 'Food was successfully created.'
     else
-      redirect_to foods_path, notice: 'Food was not destroyed.'
+      flash.now[:error] = 'Error occured. Please check your data and try again.'
+      render :new
     end
   end
+
+  def destroy
+    @food = Food.find(params[:id])
+    @food.destroy
+    redirect_to foods_path, notice: 'Food was successfully deleted.'
+  end
+
+  private
 
   def food_params
     params.require(:food).permit(:name, :measurement_unit, :price, :quantity)
